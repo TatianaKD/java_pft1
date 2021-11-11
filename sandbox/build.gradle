@@ -1,3 +1,19 @@
 apply plugin: 'java'
 apply plugin: 'application'
 mainClassName = "App"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    implementation 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    implementation 'org.junit.jupiter:junit-jupiter-params:5.8.1'
+    implementation 'junit:junit:4.13.2'
+}
+
+test {
+    useJUnitPlatform()
+}
