@@ -15,11 +15,11 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public void fillGroupForm(ContactsData kontactsData) {
-        type(By.name("firstname"), kontactsData.getFirstname());
-        type(By.name("middlename"), kontactsData.getMiddlename());
-        type(By.name("lastname"), kontactsData.getLastname());
-        type(By.name("nickname"), kontactsData.getNickname());
+    public void fillContactForm(ContactsData contactsData) {
+        type(By.name("firstname"), contactsData.getFirstname());
+        type(By.name("middlename"), contactsData.getMiddlename());
+        type(By.name("lastname"), contactsData.getLastname());
+        type(By.name("nickname"), contactsData.getNickname());
 
     }
     public void submitContactsCreation() {
