@@ -6,8 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactsData;
 
-import java.awt.*;
-
 public class ContactHelper extends HelperBase {
 
     public ContactHelper(WebDriver wd) {
@@ -37,13 +35,14 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//input[21]"));
 
     }
+
     public void deleteSelectedContacts() {
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();
     }
 
     public void selectContacts() {
-        click(By.xpath("//input[@id='9']"));
+        click(By.name("selected[]"));
     }
 
 
@@ -52,7 +51,26 @@ public class ContactHelper extends HelperBase {
     }
 
     public void submitContactsModification() {
-        click(By.xpath("//input[22]"));
+        click(By.name("update"));
+    }
+
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public void createContact(ContactsData contacts, boolean b) {
+        goToContactsPage();
+        fillContactForm(contacts, b);
+        submitContactsCreation();
+        returnToContactsPage();
+
+    }
+
+    public void goToContactsPage() {
+        click(By.linkText("add new"));
     }
 }
+
+
 
