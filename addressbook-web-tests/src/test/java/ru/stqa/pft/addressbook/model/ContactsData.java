@@ -15,6 +15,7 @@ public class ContactsData {
         this.group = group;
     }
 
+
     public String getFirstname() {
         return firstname;
     }
@@ -27,9 +28,12 @@ public class ContactsData {
         return lastname;
     }
 
-    public String getNickname(){ return nickname;}
+    public String getNickname() {
+        return nickname;
+    }
 
     public String getGroup() {
         return group;
     }
 }
+

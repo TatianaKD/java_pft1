@@ -3,8 +3,12 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactsData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -41,8 +45,8 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void selectContacts() {
-        click(By.name("selected[]"));
+    public void selectContacts(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
 
@@ -70,7 +74,32 @@ public class ContactHelper extends HelperBase {
     public void goToContactsPage() {
         click(By.linkText("add new"));
     }
+
+    public int getContactCount() {
+        return wd.findElements(By.name("selected[]")).size();
+    }
+
+    public List<ContactsData> getContactList() {
+        List<ContactsData> contacts = new ArrayList<ContactsData>();
+        WebElement elements = wd.findElement(By.cssSelector("table#maintable"));
+        List<WebElement> trElements = elements.findElements(By.tagName("tr"));
+
+        for (WebElement trElement : trElements) {
+            List<WebElement> tdElements = trElement.findElements(By.tagName("td"));
+            if(tdElements.size()==0){
+                continue;
+            }
+            String lastname = tdElements.get(1).getText();
+            String firstname = tdElements.get(2).getText();
+            ContactsData contact = new ContactsData(firstname, null,lastname , null, null);
+            contacts.add(contact);
+        }
+
+        return contacts;
+    }
 }
+
+
 
 
 
