@@ -3,7 +3,7 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactsData {
-    private String id;
+    private int id;
     private String firstname;
     private String middlename;
     private String lastname;
@@ -11,7 +11,7 @@ public class ContactsData {
     private String group;
 
     public ContactsData(String firstname, String middlename, String lastname, String nickname, String group) {
-        this.id = null;
+        this.id = 0;
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
@@ -19,7 +19,7 @@ public class ContactsData {
         this.group = group;
     }
 
-    public ContactsData(String id, String firstname, String middlename, String lastname, String nickname, String group) {
+    public ContactsData(int id, String firstname, String middlename, String lastname, String nickname, String group) {
         this.id = id;
         this.firstname = firstname;
         this.middlename = middlename;
@@ -28,8 +28,12 @@ public class ContactsData {
         this.group = group;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstname() {
@@ -66,7 +70,7 @@ public class ContactsData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactsData that = (ContactsData) o;
-        return Objects.equals(id, that.id) && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname);
+        return id == that.id && Objects.equals(firstname, that.firstname) && Objects.equals(lastname, that.lastname);
     }
 
     @Override
