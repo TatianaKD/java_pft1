@@ -51,7 +51,8 @@ public class ContactHelper extends HelperBase {
 
 
     public void initContactsModification() {
-        click(By.cssSelector("img[alt='Edit']"));
+        click((By.cssSelector("#maintable tr:last-child td:nth-child(8) a")));
+
     }
 
     public void submitContactsModification() {
@@ -86,12 +87,13 @@ public class ContactHelper extends HelperBase {
 
         for (WebElement trElement : trElements) {
             List<WebElement> tdElements = trElement.findElements(By.tagName("td"));
-            if(tdElements.size()==0){
+            if (tdElements.size() == 0) {
                 continue;
             }
             String lastname = tdElements.get(1).getText();
             String firstname = tdElements.get(2).getText();
-            ContactsData contact = new ContactsData(firstname, null,lastname , null, null);
+            String id = tdElements.get(0).findElement(By.tagName("input")).getAttribute("value");
+            ContactsData contact = new ContactsData(id, firstname, null, lastname, null, null);
             contacts.add(contact);
         }
 
