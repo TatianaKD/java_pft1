@@ -33,6 +33,7 @@ public class GroupHelper extends HelperBase {
         type(By.name("group_footer"), groupData.getFooter());
     }
 
+
     public void deleteSelectedGroup() {
         click(By.name("delete"));
     }
@@ -49,11 +50,23 @@ public class GroupHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void createGroup(GroupData group) {
+    public void create(GroupData group) {
         initGroupCreation();
         fillGroupForm(group);
         submitGroupCreation();
         returnToGroupPage();
+    }
+    public void modify(int index, GroupData group) {
+        selectGroup(index);
+        initGroupModification();
+        fillGroupForm(group);
+        submitGroupModification();
+        returnToGroupPage();
+    }
+    public void delete(int index) {
+       selectGroup(index);
+       deleteSelectedGroup();
+       returnToGroupPage();
     }
 
     public boolean isThereAGroup() {
@@ -64,7 +77,7 @@ public class GroupHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<GroupData> getGroupList() {
+    public List<GroupData> list() {
         List<GroupData> groups = new ArrayList<GroupData>();
         //находит все элементы с тегом span  и классом group  и заполняет список
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
