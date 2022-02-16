@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.ContactsData;
 
 import java.util.HashSet;
@@ -95,8 +96,8 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public Set<ContactsData> all() {
-        Set<ContactsData> contacts = new HashSet<ContactsData>();
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         WebElement elements = wd.findElement(By.cssSelector("table#maintable"));
         List<WebElement> trElements = elements.findElements(By.tagName("tr"));
 
