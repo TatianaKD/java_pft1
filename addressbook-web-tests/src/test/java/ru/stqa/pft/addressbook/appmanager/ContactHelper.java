@@ -8,9 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.ContactsData;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -52,7 +50,7 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public void initContactsModification() {
+    public void initContactsModification(int id) {
         click((By.cssSelector("#maintable tr:last-child td:nth-child(8) a")));
 
     }
@@ -70,21 +68,24 @@ public class ContactHelper extends HelperBase {
         goToContactsPage();
         fillContactForm(contacts, b);
         submitContactsCreation();
+        contactCache = null;
         returnToContactsPage();
 
     }
 
     public void modify(ContactsData contact) {
         selectContactsById(contact.getId());
-        initContactsModification();
+        initContactsModification(contact.getId());
         fillContactForm(contact, false);
         submitContactsModification();
+        contactCache = null;
         returnToContactsPage();
     }
 
     public void delete(ContactsData contact) {
         selectContactsById(contact.getId());
         deleteSelectedContacts();
+        contactCache = null;
         returnToContactsPage();
     }
 
@@ -92,12 +93,17 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public int getContactCount() {
+    public int count() {
         return wd.findElements(By.name("selected[]")).size();
     }
 
+    private Contacts contactCache = null;
+
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if (contactCache != null) {
+            return new Contacts(contactCache);
+        }
+        contactCache = new Contacts();
         WebElement elements = wd.findElement(By.cssSelector("table#maintable"));
         List<WebElement> trElements = elements.findElements(By.tagName("tr"));
 
@@ -108,15 +114,31 @@ public class ContactHelper extends HelperBase {
             }
             String lastname = tdElements.get(1).getText();
             String firstname = tdElements.get(2).getText();
+            String[] phones = tdElements.get(5).getText().split("\n");
             int id = Integer.parseInt(tdElements.get(0).findElement(By.tagName("input")).getAttribute("value"));
-            ContactsData contact = new ContactsData().withId(id).withFirstname(firstname).withLastname(lastname);
-            contacts.add(contact);
+            ContactsData contact = new ContactsData().
+                    withId(id).withFirstname(firstname).withLastname(lastname).
+                    withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]);
+            contactCache.add(contact);
         }
 
-        return contacts;
+        return new Contacts(contactCache);
     }
 
 
+    public ContactsData infoFromEditForm(ContactsData contact) {
+        initContactsModification(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactsData().
+                withId(contact.getId()).withFirstname(firstname).
+                withLastname(lastname).withHomePhone(home).
+                withMobilePhone(mobile).withWorkPhone(work);
+    }
 }
 
 

@@ -9,6 +9,37 @@ public class ContactsData {
     private String lastname;
     private String nickname;
     private String group;
+    private String homePhone;
+    private String mobilePhone;
+    private String workPhone;
+
+    public String getHomePhone() {
+        return homePhone;
+    }
+
+    public ContactsData withHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+        return this;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public ContactsData withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    public String getWorkPhone() {
+        return workPhone;
+    }
+
+
+    public ContactsData withWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
+        return this;
+    }
 
     public ContactsData withId(int id) {
         this.id = id;
