@@ -12,6 +12,75 @@ public class ContactsData {
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
+    private String AllPhones;
+    private String email;
+    private String emailTwo;
+    private String emailThree;
+    private String AllEmails;
+    private String AllAddress;
+    private String address;
+
+    public String getAllAddress() {
+        return AllAddress;
+    }
+
+    public ContactsData withAllAddress(String allAddress) {
+        this.AllAddress = allAddress;
+        return this;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public ContactsData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public ContactsData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public String getEmailTwo() {
+        return emailTwo;
+    }
+
+    public ContactsData withEmailTwo(String emailTwo) {
+        this.emailTwo = emailTwo;
+        return this;
+    }
+
+    public String getEmailThree() {
+        return emailThree;
+    }
+
+    public ContactsData withEmailThree(String emailThree) {
+        this.emailThree = emailThree;
+        return this;
+    }
+
+    public String getAllEmails() {
+        return AllEmails;
+    }
+
+    public ContactsData withAllEmails(String AllEmails) {
+        this.AllEmails = AllEmails;
+        return this;
+    }
+
+    public String getAllPhones() {
+        return AllPhones;
+    }
+    public ContactsData withAllPhones(String AllPhones) {
+        this.AllPhones = AllPhones;
+        return this;
+    }
 
     public String getHomePhone() {
         return homePhone;
