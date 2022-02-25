@@ -56,6 +56,10 @@ public class ContactHelper extends HelperBase {
 
     }
 
+    private void initContactsDetails(int id) {
+        click((By.cssSelector("#maintable tr:last-child td:nth-child(7) a ")));
+    }
+
     public void submitContactsModification() {
         click(By.name("update"));
     }
@@ -115,7 +119,7 @@ public class ContactHelper extends HelperBase {
             }
             String lastname = tdElements.get(1).getText();
             String firstname = tdElements.get(2).getText();
-            String  allPhones = tdElements.get(5).getText();
+            String allPhones = tdElements.get(5).getText();
             String allEmails = tdElements.get(4).findElements(By.cssSelector("a")).stream()
                     .map(WebElement::getText).collect(Collectors.joining("\n"));
             String allAddress = tdElements.get(3).getText();
@@ -148,6 +152,21 @@ public class ContactHelper extends HelperBase {
                 withMobilePhone(mobile).withWorkPhone(work).withEmail(email).withEmailTwo(emailTwo).
                 withEmailThree(emailThree).withAddress(address);
     }
+
+    public ContactsData infoFromDetailsForm(ContactsData contact) {
+        initContactsDetails(contact.getId());
+        String allInfo = wd.findElement(By.id("content")).getText();
+        String allInfoo = cleaned(allInfo);
+        return new ContactsData().withId(contact.getId()).withAllInfoo(allInfoo);
+
+    }
+    public static String cleaned(String allInfo) {
+        return allInfo.replaceAll("\\s+", " ").replaceAll("[-()]|H:|W:|\n", "")
+                .replaceAll("\\s+","\n");
+    }
+
+
+
 }
 
 
