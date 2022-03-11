@@ -86,9 +86,9 @@ public class GroupHelper extends HelperBase {
     private Groups groupCash = null;
 
     public Groups all() {
-        if (groupCash!=null){
-            return new Groups(groupCash);
-        }
+//        if (groupCash!=null){
+//            return new Groups(groupCash);
+//        }
         groupCash = new Groups();
 
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));

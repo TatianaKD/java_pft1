@@ -27,12 +27,13 @@ public class ContactHelper extends HelperBase {
         type(By.name("middlename"), contactsData.getMiddlename());
         type(By.name("lastname"), contactsData.getLastname());
         type(By.name("nickname"), contactsData.getNickname());
+        attach(By.name("photo"),contactsData.getPhoto());
 //контролируем наличие элемента с выпадающим списком
-        if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactsData.getGroup());
-        } else {
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
+      //  if (creation) {
+         //   new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactsData.getGroup());
+       // } else {
+       //     Assert.assertFalse(isElementPresent(By.name("new_group")));
+       // }
 
     }
 
